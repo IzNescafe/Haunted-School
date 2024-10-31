@@ -36,7 +36,7 @@ function player.update(dt)
     isMoving = true
   end
 
-  if love.keybaord.isDown("down") then
+  if love.keyboard.isDown("down") then
     player.y = player.y + player.speed
     player.anim = player.animations.down
     isMoving = true
