@@ -1,11 +1,9 @@
 local menu = require("Menu")
-
-local player = {}
-player.x = 100
-player.y = 100
+local player = require("Player")
 
 function love.load()
-  menu.load()
+  --menu.load()
+  player.load()
 end
 
 function love.update(dt)
@@ -13,5 +11,6 @@ function love.update(dt)
 end
 
 function love.draw()
-  menu.draw()
+  --menu.draw()
+  player.draw()
 end
