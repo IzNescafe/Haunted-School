@@ -15,7 +15,7 @@ function player.load()
   player.animations.down = anim8.newAnimation( player.grid('1-4', 1), 0.2) --column 1 to 4, row 1, frame rate
   player.animations.left = anim8.newAnimation( player.grid('1-4', 2), 0.2)
   player.animations.right = anim8.newAnimation(player.grid('1-4', 3), 0.2)
-  player.animations.up = anim8.newAnimation(player.grid('1-4', 4), 0,2)
+  player.animations.up = anim8.newAnimation(player.grid('1-4', 4), 0.2)
 
   player.anim = player.animations.left --to track player animation
   
