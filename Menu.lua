@@ -18,7 +18,7 @@ local font = nil
 function menu.load()
   font = love.graphcis.newFont(32)
 
-  table insert(buttons, newButton(
+  table.insert(buttons, newButton(
       "Start Game", 
       function()
         print("Starting Game!") --story.load(), chooseCharacter.load(), choseCharacter.update(), play.load(), play.update(), play.draw()
