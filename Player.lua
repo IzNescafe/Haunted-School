@@ -3,6 +3,9 @@ player = {}
 function player.load()
   anim8 = requrie 'libraries/anim8'
   love.graphics.setDefaultFilter("nearest", "nearest") --dun do blurring when we scale the sprite
+
+  sti = require 'libraries/sti'
+  gameMap = sti('maps/testMap.lua') --map setup
   
   player = {}
   player.x = 400
@@ -57,6 +60,7 @@ function player.update(dt)
 end
 
 function player.draw()
+  gameMap:draw() 
   player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1 ) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
 end
 
