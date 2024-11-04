@@ -8,7 +8,7 @@ function player.load()
   player.x = 400
   player.y = 200
   player.speed = 5
-  player.spriteSheet = love.graphics.newImage("Player_Sprite.png")
+  player.spriteSheet = love.graphics.newImage("res/Player_Sprite.png")
   player.grid = anim8.newGrid(64, 64, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
 
   player.animations = {}
