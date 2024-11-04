@@ -61,7 +61,7 @@ end
 
 function player.draw()
   gameMap:draw() 
-  player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1 ) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
+  player.anim:draw(player.spriteSheet, player.x, player.y, nil, 0.5 ) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
 end
 
 return player
