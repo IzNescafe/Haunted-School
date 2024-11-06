@@ -14,7 +14,7 @@ function player.load()
   player.x = 400
   player.y = 200
   player.speed = 5
-  player.spriteSheet = love.graphics.newImage("res/Player_Sprite.png")
+  player.spriteSheet = love.graphics.newImage("res/Girl_Sprite-Sheet.png")
   player.grid = anim8.newGrid(64, 64, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
 
   player.animations = {}
@@ -55,7 +55,7 @@ function player.update(dt)
   end
 
   if isMoving == false then
-    player.anim:gotoFrame(2) --go to standing still frame -> column number
+    player.anim:gotoFrame(1) --go to standing still frame -> column number
   end
 
   player.anim:update(dt)
@@ -93,7 +93,7 @@ function player.draw()
     gameMap:drawLayer(gameMap.layers["Tile Layer 1"])
     gameMap:drawLayer(gameMap.layers["road"])
     gameMap:drawLayer(gameMap.layers["door"])
-    player.anim:draw(player.spriteSheet, player.x, player.y, nil, 0.5, nil, 0.25, 0.3 ) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
+    player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1.5, nil, 0.25, 0.3 ) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
     --offset of camera must take half of width and half of height of sprite (to go directly in the center)
   cam:detach()
 end
