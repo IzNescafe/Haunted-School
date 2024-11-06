@@ -1,6 +1,9 @@
 player = {}
 
 function player.load()
+  camera = require 'libraries/camera'
+  cam = camera() --camera to follow sprite
+  
   anim8 = requrie 'libraries/anim8'
   love.graphics.setDefaultFilter("nearest", "nearest") --dun do blurring when we scale the sprite
 
@@ -56,12 +59,17 @@ function player.update(dt)
   end
 
   player.anim:update(dt)
-  
+  cam:lookAt(player.x, player.y)
 end
 
 function player.draw()
-  gameMap:draw() 
-  player.anim:draw(player.spriteSheet, player.x, player.y, nil, 0.5 ) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
+  cam:attach()
+    gameMap:drawLayer(gameMap.layers["Tile Layer 1"])
+    gameMap:drawLayer(gameMap.layers["road"])
+    gameMap:drawLayer(gameMap.layers["door"])
+    player.anim:draw(player.spriteSheet, player.x, player.y, nil, 0.5, nil, 0.25, 0.3 ) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
+    --offset of camera must take half of width and half of height of sprite (to go directly in the center)
+  cam:detach()
 end
 
 return player
