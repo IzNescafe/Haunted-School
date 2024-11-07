@@ -14,7 +14,7 @@ function player.load()
   gameMap = sti('maps/ground-floor.lua')
   
   player = {}
-  player.collider = world:newBSGRectangleCollider(400, 200, 25, 50, 5)
+  player.collider = world:newBSGRectangleCollider(1000, 1000, 25, 50, 5)
   player.collider:setFixedRotation(true)
   player.x = 400
   player.y = 200
@@ -116,7 +116,7 @@ function player.draw()
   cam:attach()
     gameMap:drawLayer(gameMap.layers["main"])
     -- gameMap:drawLayer(gameMap.layers["road"])
-    -- gameMap:drawLayer(gameMap.layers["door"])
+    gameMap:drawLayer(gameMap.layers["doors"])
     player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1.5, nil, 32, 32) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
     --offset of camera must take half of width and half of height of sprite (to go directly in the center)
   cam:detach()
