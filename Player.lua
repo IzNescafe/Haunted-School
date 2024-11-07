@@ -11,7 +11,7 @@ function player.load()
   love.graphics.setDefaultFilter("nearest", "nearest") --dun do blurring when we scale the sprite
 
   sti = require 'libraries/sti'
-  gameMap = sti('maps/testMap.lua')
+  gameMap = sti('maps/ground-floor.lua')
   
   player = {}
   player.collider = world:newBSGRectangleCollider(400, 200, 25, 50, 5)
@@ -88,35 +88,35 @@ function player.update(dt)
 
   -- only use after resizing sprite and map
 
-  -- local w = love.graphics.getWidth()
-  -- local h = love.graphics.getHeight()
+  local w = love.graphics.getWidth()
+  local h = love.graphics.getHeight()
 
-  -- if cam.x < w/2 then
-  --   cam.x = w/2
-  -- end
+  if cam.x < w/2 then
+    cam.x = w/2
+  end
 
-  -- if cam.y < h/2 then
-  --   cam.y = h/2
-  -- end
+  if cam.y < h/2 then
+    cam.y = h/2
+  end
 
-  -- local mapW = gameMap.width * gameMap.tilewidth
-  -- local mapH = gameMap.height * gameMap.tileheight
+  local mapW = gameMap.width * gameMap.tilewidth
+  local mapH = gameMap.height * gameMap.tileheight
 
-  -- if cam.x > (mapW - w/2) then
-  --   cam.x = (mapW - w/2)
-  -- end
+  if cam.x > (mapW - w/2) then
+    cam.x = (mapW - w/2)
+  end
 
-  -- if cam.y > (mapH - h/2) then
-  --   cam.y = (mapH - h/2)
-  -- end
+  if cam.y > (mapH - h/2) then
+    cam.y = (mapH - h/2)
+  end
   
 end
 
 function player.draw()
   cam:attach()
-    gameMap:drawLayer(gameMap.layers["Tile Layer 1"])
-    gameMap:drawLayer(gameMap.layers["road"])
-    gameMap:drawLayer(gameMap.layers["door"])
+    gameMap:drawLayer(gameMap.layers["main"])
+    -- gameMap:drawLayer(gameMap.layers["road"])
+    -- gameMap:drawLayer(gameMap.layers["door"])
     player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1.5, nil, 32, 32) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
     --offset of camera must take half of width and half of height of sprite (to go directly in the center)
   cam:detach()
