@@ -1,5 +1,8 @@
 player = {}
 
+player.isAttacking = false
+player.isMoving = false
+
 function player.load()
   wf = require 'libraries/windfield'
   world = wf.newWorld(0, 0)
@@ -27,8 +30,13 @@ function player.load()
   player.animations.left = anim8.newAnimation( player.grid('1-4', 2), 0.2)
   player.animations.right = anim8.newAnimation(player.grid('1-4', 3), 0.2)
   player.animations.up = anim8.newAnimation(player.grid('1-4', 4), 0.2)
+  player.animations.downatk = anim8.newAnimation(player.grid('1-4', 5), 0.1)
+  player.animations.leftatk = anim8.newAnimation(player.grid('1-4', 6), 0.1)
+  player.animations.rightatk = anim8.newAnimation(player.grid('1-4', 7), 0.1)
+  player.animations.upatk = anim8.newAnimation(player.grid('1-4', 8), 0.1)
 
   player.anim = player.animations.left --to track player animation
+  player.attack = left
 
   walls = {}
   if gameMap.layers["walls"] then
@@ -42,7 +50,7 @@ function player.load()
 end
 
 function player.update(dt)
-  local isMoving = false
+  player.isMoving = false
 
   local vx = 0
   local vy = 0
@@ -50,30 +58,54 @@ function player.update(dt)
   if love.keyboard.isDown("right") then
     vx =  player.speed
     player.anim = player.animations.right
-    isMoving = true
+    player.attack = 'right'
+    player.isMoving = true
   end
 
   if love.keyboard.isDown("left") then
     vx = player.speed * -1
     player.anim = player.animations.left
-    isMoving = true
+    player.attack = 'left'
+    player.isMoving = true
   end
 
   if love.keyboard.isDown("down") then
     vy = player.speed
     player.anim = player.animations.down
-    isMoving = true
+    player.attack = 'down'
+    player.isMoving = true
   end
 
   if love.keyboard.isDown("up") then
     vy = player.speed * -1
     player.anim = player.animations.up
-    isMoving = true
+    player.attack = 'up'
+    player.isMoving = true
+  end
+
+    if love.keyboard.isDown("a") then
+    player.isMoving = true
+    if player.attack == 'down' then
+      player.anim = player.animations.downatk
+      player.isAttacking = true
+    
+    elseif player.attack == 'left' then
+      player.anim = player.animations.leftatk
+      player.isAttacking = true
+
+    elseif player.attack == 'right' then
+      player.anim = player.animations.rightatk
+      player.isAttacking = true
+
+    elseif player.attack == 'up' then
+      player.anim = player.animations.upatk
+      player.isAttacking = true
+    end
   end
 
   player.collider:setLinearVelocity(vx, vy)
 
-  if isMoving == false then
+  if player.isMoving == false then
     player.anim:gotoFrame(1) --go to standing still frame -> column number
   end
 
