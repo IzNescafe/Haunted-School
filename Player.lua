@@ -101,6 +101,13 @@ function player.update(dt)
     end
   end
 
+  -- Normalize the vector if moving diagonally
+  if vx ~= 0 and vy ~= 0 then
+    local magnitude = math.sqrt(vx^2 + vy^2)
+    vx = (vx / magnitude) * player.speed
+    vy = (vy / magnitude) * player.speed
+  end
+
   player.collider:setLinearVelocity(vx, vy)
 
   if player.isMoving == false then
