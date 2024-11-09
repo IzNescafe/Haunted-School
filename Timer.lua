@@ -1,5 +1,3 @@
--- Countdown Timer Example
-
 -- Initialize the countdown
 timer = {}
 
