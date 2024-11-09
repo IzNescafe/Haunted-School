@@ -1,4 +1,5 @@
 player = {}
+local timer = require("Timer")
 
 player.isAttacking = false
 player.isMoving = false
@@ -50,6 +51,7 @@ function player.load()
 end
 
 function player.update(dt)
+  timer.update(dt)
   player.isMoving = false
 
   local vx = 0
@@ -149,6 +151,7 @@ function player.draw()
     gameMap:drawLayer(gameMap.layers["main"])
     -- gameMap:drawLayer(gameMap.layers["road"])
     gameMap:drawLayer(gameMap.layers["doors"])
+    timer.draw()
     player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1.5, nil, 32, 32) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
     --offset of camera must take half of width and half of height of sprite (to go directly in the center)
   cam:detach()
