@@ -1,10 +1,11 @@
 player = {}
-local timer = require("Timer")
+local gameMap = require("GameMap")
 
 player.isAttacking = false
 player.isMoving = false
 
 function player.load()
+  gameMap.load()
   wf = require 'libraries/windfield'
   world = wf.newWorld(0, 0)
 
@@ -13,11 +14,7 @@ function player.load()
 
   anim8 = require 'libraries/anim8'
   love.graphics.setDefaultFilter("nearest", "nearest") --dun do blurring when we scale the sprite
-
-  sti = require 'libraries/sti'
-  gameMap = sti('maps/ground-floor.lua')
   
-  player = {}
   player.collider = world:newBSGRectangleCollider(1000, 1000, 25, 50, 5)
   player.collider:setFixedRotation(true)
   player.x = 400
@@ -37,11 +34,11 @@ function player.load()
   player.animations.upatk = anim8.newAnimation(player.grid('1-4', 8), 0.1)
 
   player.anim = player.animations.left --to track player animation
-  player.attack = left
+  player.attack = "left"
 
   walls = {}
-  if gameMap.layers["walls"] then
-    for i, obj in pairs(gameMap.layers["walls"].objects) do
+    if gameMap.map.layers["walls"] then
+    for i, obj in pairs(gameMap.map.layers["walls"].objects) do
       local wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
       wall:setType('static')
       table.insert(walls, wall)
@@ -51,7 +48,6 @@ function player.load()
 end
 
 function player.update(dt)
-  timer.update(dt)
   player.isMoving = false
 
   local vx = 0
@@ -133,8 +129,8 @@ function player.update(dt)
     cam.y = h/2
   end
 
-  local mapW = gameMap.width * gameMap.tilewidth
-  local mapH = gameMap.height * gameMap.tileheight
+  local mapW = gameMap.map.width * gameMap.map.tilewidth
+  local mapH = gameMap.map.height * gameMap.map.tileheight
 
   if cam.x > (mapW - w/2) then
     cam.x = (mapW - w/2)
@@ -148,10 +144,7 @@ end
 
 function player.draw()
   cam:attach()
-    gameMap:drawLayer(gameMap.layers["main"])
-    -- gameMap:drawLayer(gameMap.layers["road"])
-    gameMap:drawLayer(gameMap.layers["doors"])
-    timer.draw()
+    gameMap.draw()
     player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1.5, nil, 32, 32) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
     --offset of camera must take half of width and half of height of sprite (to go directly in the center)
   cam:detach()
