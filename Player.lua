@@ -1,11 +1,13 @@
 player = {}
 local gameMap = require("GameMap")
+local timer = require("Timer")
 
 player.isAttacking = false
 player.isMoving = false
 
 function player.load()
   gameMap.load()
+  timer.load()
 
   camera = require 'libraries/camera'
   cam = camera()
@@ -37,41 +39,42 @@ function player.load()
 end
 
 function player.update(dt)
+  timer.update(dt)
   player.isMoving = false
 
   local vx = 0
   local vy = 0
   
-  if love.keyboard.isDown("right") then
+  if love.keyboard.isDown("right") or love.keyboard.isDown("d") then
     vx =  player.speed
     player.anim = player.animations.right
     player.attack = 'right'
     player.isMoving = true
   end
 
-  if love.keyboard.isDown("left") then
+  if love.keyboard.isDown("left") or love.keyboard.isDown("a") then
     vx = player.speed * -1
     player.anim = player.animations.left
     player.attack = 'left'
     player.isMoving = true
   end
 
-  if love.keyboard.isDown("down") then
+  if love.keyboard.isDown("down") or love.keyboard.isDown("s") then
     vy = player.speed
     player.anim = player.animations.down
     player.attack = 'down'
     player.isMoving = true
   end
 
-  if love.keyboard.isDown("up") then
+  if love.keyboard.isDown("up") or love.keyboard.isDown("w") then
     vy = player.speed * -1
     player.anim = player.animations.up
     player.attack = 'up'
     player.isMoving = true
   end
 
-    if love.keyboard.isDown("a") then
-    -- player.isMoving = true
+  if love.mouse.isDown(1) then
+    player.isMoving = true
     if player.attack == 'down' then
       player.anim = player.animations.downatk
       player.isAttacking = true
@@ -141,6 +144,7 @@ end
 function player.draw()
   cam:attach()
     gameMap.draw()
+    timer.draw()
     player.anim:draw(player.spriteSheet, player.x, player.y, nil, 2, nil, 32, 32) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
     --offset of camera must take half of width and half of height of sprite (to go directly in the center)
   cam:detach()
