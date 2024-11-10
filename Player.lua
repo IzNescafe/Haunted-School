@@ -6,8 +6,6 @@ player.isMoving = false
 
 function player.load()
   gameMap.load()
-  wf = require 'libraries/windfield'
-  world = wf.newWorld(0, 0)
 
   camera = require 'libraries/camera'
   cam = camera()
@@ -15,7 +13,7 @@ function player.load()
   anim8 = require 'libraries/anim8'
   love.graphics.setDefaultFilter("nearest", "nearest") --dun do blurring when we scale the sprite
   
-  player.collider = world:newBSGRectangleCollider(1000, 1000, 25, 50, 5)
+  player.collider = gameMap.world:newBSGRectangleCollider(1000, 1000, 25, 50, 5)
   player.collider:setFixedRotation(true)
   player.x = 400
   player.y = 200
@@ -35,15 +33,6 @@ function player.load()
 
   player.anim = player.animations.left --to track player animation
   player.attack = "left"
-
-  walls = {}
-    if gameMap.map.layers["walls"] then
-    for i, obj in pairs(gameMap.map.layers["walls"].objects) do
-      local wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
-      wall:setType('static')
-      table.insert(walls, wall)
-    end
-  end
   
 end
 
@@ -82,7 +71,7 @@ function player.update(dt)
   end
 
     if love.keyboard.isDown("a") then
-    player.isMoving = true
+    -- player.isMoving = true
     if player.attack == 'down' then
       player.anim = player.animations.downatk
       player.isAttacking = true
@@ -115,7 +104,7 @@ function player.update(dt)
   end
 
   --collisions
-  world:update(dt)
+  gameMap.update(dt)
   player.x = player.collider:getX()
   player.y = player.collider:getY()
 
@@ -152,7 +141,7 @@ end
 function player.draw()
   cam:attach()
     gameMap.draw()
-    player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1.5, nil, 32, 32) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
+    player.anim:draw(player.spriteSheet, player.x, player.y, nil, 2, nil, 32, 32) --posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
     --offset of camera must take half of width and half of height of sprite (to go directly in the center)
   cam:detach()
 end
