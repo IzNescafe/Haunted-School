@@ -111,7 +111,6 @@ function player.update(dt)
 end
 
 function player.draw()
-  gameMap.world:draw()
   player.anim:draw(player.spriteSheet, player.x, player.y, nil, 2, nil, 32, 32) -- posx, posy, nil-> no rotation, scale x factor-> y wil also adopt that effect
   -- offset of camera must take half of width and half of height of sprite (to go directly in the center)
 end
