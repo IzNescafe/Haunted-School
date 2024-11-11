@@ -1,16 +1,17 @@
-local menu = require("Menu")
-local player = require("Player")
+-- local menu = require("Menu")
+-- local player = require("Player")
+local playing = require("playing")
 
 function love.load()
   --menu.load()
-  player.load()
+  playing.load()
 end
 
 function love.update(dt)
-  player.update(dt)
+  playing.update(dt)
 end
 
 function love.draw()
   --menu.draw()
-  player.draw()
+    playing.draw()
 end
