@@ -8,6 +8,11 @@ function gameMap.load()
     sti = require 'libraries/sti'
     gameMap.map = sti('maps/ground-floor.lua')
 
+    gameMap.world:addCollisionClass('Ignore', {ignores = {'Ignore'}})
+    -- gameMap.world:addCollisionClass('Ground', {ignores = {'Ignore'}})
+    gameMap.world:addCollisionClass('Player', {ignores = {'Ignore'}})
+    gameMap.world:addCollisionClass('Enemy', {ignores = {'Ignore'}})
+
     walls = {}
     if gameMap.map.layers["walls"] then
     for i, obj in pairs(gameMap.map.layers["walls"].objects) do
