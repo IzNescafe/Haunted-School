@@ -4,6 +4,7 @@ local player = require("Player")
 local enemy = require("enemy")
 local timer = require("Timer")
 local gameMap = require("GameMap")
+require("sword")
 
 function playing.load()
 
@@ -19,6 +20,7 @@ end
 function playing.update(dt)
     player.update(dt)
     enemy.update(dt)
+    sword:update(dt)
     timer.update(dt)
     gameMap.update(dt) --update physics world
 
@@ -53,8 +55,9 @@ function playing.draw()
     cam:attach()
       gameMap.draw()
       timer.draw()
-      player.draw()
       enemy.draw()
+      sword:draw()
+      player.draw()
     --   gameMap.world:draw() --to check the colliders/hitboxes of the world
   cam:detach()
 end
